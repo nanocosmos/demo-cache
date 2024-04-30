@@ -1,6 +1,221 @@
 ﻿# **NanoPlayer - Release History**
 
+## **[4.24.2]**
+
+### **Release Notes**
+
+This patch release addresses an autoplay issue occurring when the application called `player.unmute()` without user interaction context. This issue could result in black frames or errors during playback start if unmuted playback was not permitted. Further we enhanced the smoothness of stream switches specifically in H5Live-HLS mode, providing a better viewing experience for users.
+
+### **Changelog**
+
+### Fixed
+
+- autoplay issue in case of application calling `player.unmute()` without user interaction context that could lead to black frames or errors during playback start if unmuted playback was not permitted
+
+### Improved
+
+- smoothness during stream switches in H5Live-HLS mode
+
+## **[4.24.1]**
+
+### **Release Notes**
+
+The update addresses an issue where playback would become stuck after repeated stream switches or pause/play actions in H5Live-HLS mode on iOS devices. Specifically, the fix resolves problems encountered with H5Live-HLS fallback when using locally loaded web pages in iOS WKWebView.
+
+### **Changelog**
+
+### Fixed
+
+- playback stuck after repeated stream switches or pause/play in H5Live-HLS mode on iOS
+  - H5Live-HLS fallback with locally loaded web pages in iOS WKWebView
+
+## **[4.24.0]**
+
+### **Release Notes**
+
+This release comes with several improvements. We added the use of a new lean response option via the Bintu API, which improves response times.
+Further we improved the latency recovery during playback on desktop platforms when transitioning from a hidden to visible state, enhancing user experience.
+Moreover, we implemented measures to prevent buffering when quality adaptations occur in streams ingested via WebRTC, ensuring smoother streaming experiences.
+Additionally we improved the detection of iOS desktop mode and application of background suspension, ensuring consistent behavior across browsers and modes on iOS devices.
+Also we addressed a bug where stream switching failed while in a paused state with `keepConnection` and `forcePlay` options enabled, improving overall functionality and stability.
+We added a fix regarding the unintended fallback behavior in latency control mode `fastadaptive` to `balancedadaptive` for Safari versions 17.4 and above on MacOS Sonoma. The fallback was introduced in version 4.23.1.
+As a last point we enabled H5Live-HLS fallbacks when access to ManagedMediaSource API is denied for locally loaded webpages in iOS WKWebView.
+
+### **Changelog**
+
+### Improved
+
+- utilizing new lean response option for configuration via bintu API for a faster response
+- faster latency recovery of playback via desktop when returning from hidden to visible state
+- prevent buffering in case of quality adaptions in streams ingested via webrtc
+- iOS desktop mode detection and application of background suspension to ensure consisent behaviour across browsers and modes on iOS
+- use H5Live-HLS fallback in case of a denied access to the ManagedMediaSource API for locally loaded webpages in iOS WKWebView
+
+### Fixed
+
+- stream switch failing in paused state with `keepConnection` and `forcePlay` options enabled
+- remove unintended fallback for latency control mode `fastadaptive` to `balancedadaptive` for Safari 17.4+ on MacOS Sonoma (introduced in 4.23.1)
+
+## Please find more about the **latency control modes** feature in our [documentation](https://docs.nanocosmos.de/docs/nanoplayer/nanoplayer_feature_latency_control_modes/)
+
+## **[4.23.1]**
+
+### **Release Notes**
+
+In this latest release, we're exited to introduce enhanced playback support through the Managed Media Source API (MMSE) for iOS 17.1 and above. By default, this feature provides an upgraded media playback experience in line with desktop and Android platforms, resulting in improved latency, faster start-up times, and an overall enhanced user experience. In the event that MMSE API is unsupported or disabled, H5live-HLS will seamlessly take over on iOS.
+
+Moreover, we've expanded support for the latency control mode `balancedadaptive` across all iOS versions. This empowers users to achieve lower latency while ensuring a smooth playback experience on iOS devices. For more detailed information, refer to our comprehensive feature description in the [documentation](https://docs.nanocosmos.de/docs/nanoplayer/nanoplayer_feature_latency_control_modes#v4231).
+
+Additionally, this version includes a general enhancement to buffer and latency control for H5live-HLS playback on iOS. These improvements contribute to an even more refined and optimized playback experience.
+
+### **Changelog**
+
+### Added
+
+- support for playback via Managed Media Source API (MMSE) on iOS 17.1 and higher
+  - media playback workflow similar to desktop and Android
+  - replacing h5live-HLS
+  - improving: latency, start-up time, general UX
+- support for playback with latency control mode `balancedadaptive` on iOS (all versions)
+  - configuration fallback from `fastadaptive` to `balancedadaptive` mode
+  - improving: latency (control)
+
+### Improved
+
+- buffer and latency control on iOS (all versions)
+  - workflow similar to desktop and Android
+  
+### Fixed
+
+- false positive `warning` event related to `switch.method` configuration on iOS
+- reconnect behaviour in `keepConnection` mode
+- adaptive bitrate control after error recovery on iOS
+- redundant adaptive bitrate control down step attempts
+
+## Please find more about the **fast playback start** feature in our [documentation](https://docs.nanocosmos.de/docs/nanoplayer/nanoplayer_feature_fast_start/)
+
+## **[4.22.3]**
+
+### **Release Notes**
+
+This version is improving the detection of supported browsers for iOS WebView apps with customized user agent strings.
+
+### **Changelog**
+
+### Improved
+
+- detection of supported browsers for iOS WebView apps with customized user agent strings
+
+## **[4.22.2]**
+
+### **Release Notes**
+
+This release introduces crucial improvements and fixes to elevate your streaming experience. We have addressed issues that had impacted playback on iOS devices, ensuring a smoother experience across various scenarios. This update focuses on improving playback latencies, stream switch buffering on iOS, fullscreen layout issues, and occasional exceptions during player destruction on iOS.
+
+### **Changelog**
+
+### Improved
+
+- preventing higher playback latencies of some webrtc ingest streams that show frequent resolution adaptions
+
+### Fixed
+
+- randomly occurring issue that could lead to repeated buffering after stream switches on iOS
+- fullscreen layout issue after entering fullscreen mode more than one time
+  - affected screens with display ratios higher/wider than the player including mobile landscape orientation
+  - the bottom of the video was partially out of the display area
+  - (the issue has been introduced in v4.22.0)
+- non critical exception occurring occasionally during `player.destroy` on iOS
+
+## **[4.22.1]**
+
+### **Release Notes**
+
+This version fixes a rare issue that could lead to incorrect startup stats, mainly occuring if the browser or tab was not visible in `LOADING` state.
+
+### **Changelog**
+
+### Fixed
+
+- issue with incorrect startup stats in `LOADING` state at visibility `hidden`
+
+## **[4.22.0]**
+
+### **Release Notes**
+
+This version is introducing the new Fast Start Mode feature that enhances playback start-up times with nanoStream Cloud.
+This cutting-edge addition allows you to significantly reduce startup times when initiating playback.
+Fast Start Mode can be enabled using the configuration setting `config.playback.faststart`.
+Please note that it is disabled by default, so you have full control over its activation.
+The unused option `config.source.options.switch.fastStart` has been deprecated.
+
+Furthermore we have improved the Adaptive Bitrate (ABR) initial switch-up behavior in case of degraded network conditions.
+In addition, a layout issue that occured after exiting fullscreen mode in Safari 16.5 macOS has been fixed.
+
+### **Changelog**
+
+### Added
+
+- fast start mode feature for improved playback start-up times with nanoStream Cloud
+  - can be enabled via boolean `config.playback.faststart`, disabled by default
+  - fast start related values in `onStreamInfo` and `onPlay` event
+
+### Improved
+
+- initial ABR switch up behaviour in case of degraded network conditions
+
+### Fixed
+
+- layout issue after exiting fullscreen mode in Safari 16.5 macOS
+
+## Removed
+
+- deprecated unused option `config.source.options.switch.fastStart`
+
 ## Please find more about the **media error recovery** feature in our [documentation](https://docs.nanocosmos.de/docs/nanoplayer/nanoplayer_feature_media_error_recovery/)
+
+## **[4.21.0]**
+
+### **Release Notes**
+
+This release brings a range of enhancements and fixes to improve your experience. We have made adjustments to iOS buffer control to ensure best performance with iOS 17.
+All metrics events now include an event counter and an indication of `Document.visibilityState` to provide deeper insights into user interactions.
+Furthermore we've worked on enhancing iOS playback recovery. In case of network interruptions or degradations, the iOS playback will be recovered more smoothly.
+An issue has been resolved that previously led to a false positive `PLAYING` state on iOS during network interruptions. This will result in more accurate playback status representation.
+In addition we've addressed an issue that could occasionally lead to an incomplete or empty `stats` object in the `onPlay` event.
+
+### **Changelog**
+
+### Added
+
+- iOS 17 related adjustment in iOS buffer control
+- indication of `Document.visibilityState` in all metrics events
+- event counter in all metrics events
+
+### Improved
+
+- iOS playback recovery in case of network interruptions or degradations
+
+### Fixed
+
+- prevent false positive `playing` state in case of iOS network interruptions
+- issue that could cause an incomplete or empty `stats` object in the `onPlay` event
+
+## **[4.20.4]**
+
+### **Release Notes**
+
+This version fixes an issue that occurred when attempting media error recovery immediately after a switch stream fail on iOS. The issue was introduced in version 4.20.2. Additionally, an issue related to the `interactionrequired` error with code `1005` on iOS has been resolved. The `onStreamInfo` event will now be fired correctly before the `onError` and `onPause` events. This problem was introduced with the release of version 4.20.3.
+
+Furthermore, a minor issue regarding the automute feature at delayed play attempts without prior or direct user interaction has been fixed. The same applies to unmute attempts without user interaction during playback, that was started in `muted` state. These attempts will now result in muted playback or, in the case of automute being disabled, in error `1005`.
+
+### **Changelog**
+
+### Fixed
+
+- issue in case of a media error recovery immediately after a switch stream fail
+- correct emitting of `onStreamInfo` in case of the error `1005` `interactionrequired` on iOS
+- automute behaviour at delayed play or unmute attempts without prior or direct user interaction on iOS
 
 ## **[4.20.3]**
 
@@ -1251,7 +1466,7 @@ This release patches an issue with bintu sources. Now after a successful bintu c
 ### **Release Notes**
 
 With this release come new features and some patches. One feature is about firing 'onError' with new error codes in case of a setup error. See the docs for more information (<https://demo.nanocosmos.de/nanoplayer/docs/nanoplayer/NanoPlayer.html#toc21__anchor>). Also a warnings will be fired if config properties are not valid or from wrong type.
-The other introduces a new metrics api which enables internal event logging and data aggregation with a nanocosmos backend. Please contact our sales team (mailto:sales@nanocosmos.de) for more information and see './js/nanoplayer-metrics-config.js' in the 'Demo Package'. This release also includes patches for IE/Edge regarding play stats and stable playback after viewport lost.
+The other introduces a new metrics api which enables internal event logging and data aggregation with a nanocosmos backend. Please contact our sales team (mailto:<sales@nanocosmos.de>) for more information and see './js/nanoplayer-metrics-config.js' in the 'Demo Package'. This release also includes patches for IE/Edge regarding play stats and stable playback after viewport lost.
 Now also 'Windows 10' will be detected correctly and on 'Destroy' pause will be fired only if playing.
 
 ### **Changelog**
@@ -1288,7 +1503,7 @@ Now also 'Windows 10' will be detected correctly and on 'Destroy' pause will be 
   - enables event logging and data aggregation
   - configurable via the new 'config.metrics' object, see <https://demo.nanocosmos.de/nanoplayer/docs/nanoplayer/NanoPlayer.html#toc20__anchor>
   - disabled by default
-  - for more information contact our sales team: mailto:sales@nanocosmos.de
+  - for more information contact our sales team: mailto:<sales@nanocosmos.de>
   - NOTE: don't set if you have no account!
   - NOTE: if 'Demo Package' is used see './js/nanoplayer-metrics-config.js'!
 
@@ -1327,7 +1542,7 @@ The second feature is the new public event 'onDestroy'. This event is fired when
   - subobject 'stats' in 'event.data'
   - keys: 'connecting', 'connected', 'firstFragmentReceived', 'firstFrameRendered', 'playable', 'playing'
   - times in milliseconds relative to 'connecting'
-  - see 'https://demo.nanocosmos.de/nanoplayer/docs/nanoplayer/NanoPlayer.html#~event:onPlay'
+  - see '<https://demo.nanocosmos.de/nanoplayer/docs/nanoplayer/NanoPlayer.html#~event:onPlay>'
   - an example 'event.data.stats' object:
 
 ````javascript

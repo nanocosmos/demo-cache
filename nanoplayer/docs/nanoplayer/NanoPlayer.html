@@ -81,7 +81,7 @@
         NanoPlayer
         </h2>
         
-            <div class="class-description"><p>NanoPlayer (H5Live) Public API Class 4.20.3</p></div>
+            <div class="class-description"><p>NanoPlayer (H5Live) Public API Class 4.24.2</p></div>
         
     
 </header>
@@ -170,7 +170,7 @@
 	<dt class="tag-version method-doc-label method-doc-details-label">Version:</dt>
 	<dd class="tag-version">
 		<ul class="dummy">
-			<li>4.20.3</li>
+			<li>4.24.2</li>
 		</ul>
 	</dd>
 	
@@ -404,6 +404,77 @@
     
     <div class="description">
         <p>The unique id of the player.</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">string</span>
+
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt class="name" id="tech">
+    <h4 id="tech"><span class="type-signature"></span>tech<span class="type-signature"> :string</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>The playback technology of the player.</p>
     </div>
     
 
@@ -1540,7 +1611,7 @@
 
     
     <div class="description">
-        <p>Sets the volume of the player.</p>
+        <p>Sets the volume of the player. NOT AVAILABLE FOR IOS, see <a href="https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html#volume-control-in-javascript/"><b>here</b></a> for more informations.</p>
     </div>
     
 
@@ -4319,7 +4390,7 @@
                 </td>
             
 
-            <td class="description last"><p>Only if method is 'server'. Tries to accelerate the startup time of the new source. Default is false.</p></td>
+            <td class="description last"><p>DEPRECATED. Only if method is 'server'. Tries to accelerate the startup time of the new source. Default is false.</p></td>
         </tr>
 
     
@@ -5808,6 +5879,44 @@
             
 
             <td class="description last"><p>If enabled this mode for metadata processing is preventing occasionally delayed metadata on iOS. To use legacy mode set to false. The setting <code>playback.metadata</code> has to be enabled. IOS ONLY</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>faststart</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    false
+                
+                </td>
+            
+
+            <td class="description last"><p>If enabled the fast start mode is reducing the time to first frame and the playback start time.</p></td>
         </tr>
 
     
@@ -8464,11 +8573,11 @@
     
         <h5>Examples</h5>
         
-    <pre class="sunlight-highlight-javascript">var config = {    source: {        bintu: { // DEPRECATED. PLEASE USE ENTRIES!!! WILL BE OVERWRITTEN IN CASE AT LEAST ONE &#x27;ENTRY&#x27; IS DEFINED IN &#x27;ENTRIES&#x27; ARRAY.            streamid: &#x27;q23rf2tzw3h6754iretmft7irt&#x27;        }    }};</pre>
+    <pre class="sunlight-highlight-javascript">// stream group config examplevar config = {    &quot;source&quot; : {        &quot;group&quot;: {            &quot;id&quot;: &quot;3b6cca80-91ca-49f1-b7da-6486317ac077&quot;,            &quot;startQuality&quot;: &quot;low&quot;        }    },    &quot;playback&quot;: {        &quot;autoplay&quot;: true,        &quot;automute&quot;: true,        &quot;muted&quot;: false,        &quot;metadata&quot;: true,        &quot;faststart&quot;: true,        &quot;latencyControlMode&quot;: &#x27;balancedadaptive&#x27;    },    &quot;events&quot;: {        &quot;onError&quot;: function (e) {            console.log(e);        }    },    &quot;style&quot;: {        &quot;width&quot;: &#x27;auto&#x27;,        &quot;height&quot;: &#x27;auto&#x27;    }};</pre>
 
-    <pre class="sunlight-highlight-javascript">// Complete config examplevar config = {    &quot;source&quot; : {        &quot;entries&quot;: [ // array of &#x27;entry&#x27; objects                {                    &quot;index&quot;: 0,                    &quot;label&quot;: &quot;high&quot;,                    &quot;tag&quot;: &quot;this is a high quality stream&quot;,                    &quot;info&quot;: {                        &quot;bitrate&quot;: 1200,                        &quot;width&quot;: 1280,                        &quot;height&quot;: 720,                        &quot;framerate&quot;: 30                    },                    &quot;hls&quot;: &quot;&quot;,                    &quot;h5live&quot;: {                        &quot;rtmp&quot;: {                            &quot;url&quot;: &quot;rtmp://bintu-play.nanocosmos.de/play&quot;,                            &quot;streamname&quot;: &quot;XXXXX-YYYY1&quot;                        },                        &quot;server&quot;: {                            &quot;websocket&quot;: &quot;wss://bintu-h5live.nanocosmos.de:443/h5live/stream.mp4&quot;,                            &quot;hls&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/playlist.m3u8&quot;,                            &quot;progressive&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/stream.mp4&quot;                        },                        &quot;token&quot;: &quot;&quot;,                        &quot;security&quot;: {}                    },                    &quot;bintu&quot;: {}                },                {                    &quot;index&quot;: 1,                    &quot;label&quot;: &quot;medium&quot;,                    &quot;tag&quot;: &quot;this is a medium quality stream&quot;,                    &quot;info&quot;: {                        &quot;bitrate&quot;: 800,                        &quot;width&quot;: 864,                        &quot;height&quot;: 480,                        &quot;framerate&quot;: 30                    },                    &quot;hls&quot;: &quot;&quot;,                    &quot;h5live&quot;: {                        &quot;rtmp&quot;: {                            &quot;url&quot;: &quot;rtmp://bintu-play.nanocosmos.de/play&quot;,                            &quot;streamname&quot;: &quot;XXXXX-YYYY2&quot;                        },                        &quot;server&quot;: {                            &quot;websocket&quot;: &quot;wss://bintu-h5live.nanocosmos.de:443/h5live/stream.mp4&quot;,                            &quot;hls&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/playlist.m3u8&quot;,                            &quot;progressive&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/stream.mp4&quot;                        },                        &quot;token&quot;: &quot;&quot;,                        &quot;security&quot;: {}                    },                    &quot;bintu&quot;: {}                },                {                    &quot;index&quot;: 2,                    &quot;label&quot;: &quot;low&quot;,                    &quot;tag&quot;: &quot;this is a low quality stream&quot;,                    &quot;info&quot;: {                        &quot;bitrate&quot;: 400,                        &quot;width&quot;: 426,                        &quot;height&quot;: 240,                        &quot;framerate&quot;: 15                    },                    &quot;hls&quot;: &quot;&quot;,                    &quot;h5live&quot;: {                        &quot;rtmp&quot;: {                            &quot;url&quot;: &quot;rtmp://bintu-play.nanocosmos.de/play&quot;,                            &quot;streamname&quot;: &quot;XXXXX-YYYY3&quot;                        },                        &quot;server&quot;: {                            &quot;websocket&quot;: &quot;wss://bintu-h5live.nanocosmos.de:443/h5live/stream.mp4&quot;,                            &quot;hls&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/playlist.m3u8&quot;,                            &quot;progressive&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/stream.mp4&quot;                        },                        &quot;token&quot;: &quot;&quot;,                        &quot;security&quot;: {}                    },                    &quot;bintu&quot;: {}                }        ],        &quot;options&quot;: {            &quot;adaption&quot;: {                &quot;rule&quot;: &quot;deviationOfMean2&quot;,                &quot;downStep&quot;: 2            },            &quot;switch&quot;: {                &#x27;method&#x27;: &#x27;server&#x27;,                &#x27;pauseOnError&#x27;: false,                &#x27;forcePlay&#x27;: true,                &#x27;fastStart&#x27;: false,                &#x27;timeout&#x27;: 20            }        },        &quot;startIndex&quot;: 2 // lowest    },    // playback is completely optional    &quot;playback&quot;: {        &quot;autoplay&quot;: true,        &quot;automute&quot;: true,        &quot;muted&quot;: false,        &quot;metadata&quot;: true,        &quot;reconnect&quot;: {            &quot;minDelay&quot;: 2.5,            &quot;maxDelay&quot;: 12.5,            &quot;delaySteps&quot;: 6,            &quot;maxRetries&quot;: 20        }    },    &quot;events&quot;: {        &quot;onWarning&quot;: function (e) {            console.log(e);        }    },    &quot;style&quot;: {        &quot;width&quot;: &#x27;1280px&#x27;,        &quot;height&quot;: &#x27;720px&#x27;    },    // optional buffer tweaks, use with care, usually not required    &quot;tweaks&quot;: {        &quot;buffer&quot;: {            &quot;min&quot;: 0.2,            &quot;start&quot;: 0.5,            &quot;max&quot;: 8.0,            &quot;target&quot;: 1.2,            &quot;limit&quot;: 1.7        }    },    // metrics/analytics (requires account)    &quot;metrics&quot;: {        &quot;accountId&quot;: &#x27;myId&#x27;,        &quot;accountKey&quot;: &#x27;sdfhe457zsjhnrtzd8&#x27;,        &quot;userId&quot;: &#x27;myUserId&#x27;,        &quot;eventId&quot;: &#x27;myEventId&#x27;,        &quot;statsInterval&quot;: 10,        &quot;customField1&quot;: &#x27;custom&#x27;,        &quot;customField2&quot;: 42,        &quot;customField3&quot;: true    }};</pre>
+    <pre class="sunlight-highlight-javascript">// example with bintu as default servicevar config = {    &quot;source&quot;: {        &quot;defaults&quot;: {            &quot;service&quot;: &#x27;bintu&#x27;        },        &quot;entries&quot;: [ // array of &#x27;entry&#x27; objects                {                    &quot;index&quot;: 0,                    &quot;label&quot;: &quot;high&quot;,                    &quot;h5live&quot;: {                        &quot;rtmp&quot;: {                            &quot;streamname&quot;: &quot;XXXXX-YYYY1&quot;                        }                    }                },                {                    &quot;index&quot;: 1,                    &quot;label&quot;: &quot;medium&quot;,                    &quot;h5live&quot;: {                        &quot;rtmp&quot;: {                            &quot;streamname&quot;: &quot;XXXXX-YYYY2&quot;                        }                    }                },                {                    &quot;index&quot;: 2,                    &quot;label&quot;: &quot;low&quot;,                    &quot;h5live&quot;: {                        &quot;rtmp&quot;: {                            &quot;streamname&quot;: &quot;XXXXX-YYYY3&quot;                        }                    }                }        ],        &quot;options&quot;: {            &quot;adaption&quot;: {                &quot;rule&quot;: &quot;deviationOfMean2&quot;            }        },        &quot;startIndex&quot;: 2 // lowest    },    &quot;playback&quot;: {        &quot;autoplay&quot;: true,        &quot;automute&quot;: true,        &quot;muted&quot;: false,        &quot;faststart&quot;: true,        &quot;latencyControlMode&quot;: &#x27;balancedadaptive&#x27;    },    &quot;events&quot;: {        &quot;onStats&quot;: function (e) {            console.log(e);        }    },    &quot;style&quot;: {       view: false    },    &quot;metrics&quot;: {        &quot;accountId&quot;: &#x27;myId&#x27;,        &quot;accountKey&quot;: &#x27;sdfhe457zsjhnrtzd8&#x27;    }};</pre>
 
-    <pre class="sunlight-highlight-javascript">// example with source url params and eventsvar config = {    &quot;source&quot;: {        &quot;h5live&quot;: { // DEPRECATED. PLEASE USE ENTRIES!!! WILL BE OVERWRITTEN IN CASE AT LEAST ONE &#x27;ENTRY&#x27; IS DEFINED IN &#x27;ENTRIES&#x27; ARRAY.            &quot;server&quot;: {                &quot;websocket&quot;: &#x27;wss://bintu-h5live.nanocosmos.de/h5live/stream&#x27;,                &quot;hls&quot;: &#x27;https://bintu-h5live.nanocosmos.de/h5live/http/playlist.m3u8&#x27;            },            // rtmp stream source (your live stream)            &quot;params&quot;: {                &quot;url&quot;: &#x27;rtmp://bintu-play.nanocosmos.de:80/live&#x27;,                &quot;streamname&quot;: &#x27;XXXXX-YYYYY&#x27;                &quot;custom_key&quot;: &#x27;custom_value&#x27;            }        }    },    &quot;playback&quot;: {        &quot;autoplay&quot;: false,        &quot;videoId&quot;: [&#x27;myVideoTagId&#x27;, &#x27;myVideoTagId&#x27;]    },    &quot;events&quot;: {        &quot;onStats&quot;: function (e) {            console.log(e);        }    },    &quot;style&quot;: {       view: false    },    &quot;metrics&quot;: {        &quot;accountId&quot;: &#x27;myId&#x27;,        &quot;accountKey&quot;: &#x27;sdfhe457zsjhnrtzd8&#x27;    }};</pre>
+    <pre class="sunlight-highlight-javascript">// complete config examplevar config = {    &quot;source&quot; : {        &quot;entries&quot;: [ // array of &#x27;entry&#x27; objects                {                    &quot;index&quot;: 0,                    &quot;label&quot;: &quot;high&quot;,                    &quot;tag&quot;: &quot;this is a high quality stream&quot;,                    &quot;info&quot;: {                        &quot;bitrate&quot;: 1200,                        &quot;width&quot;: 1280,                        &quot;height&quot;: 720,                        &quot;framerate&quot;: 30                    },                    &quot;hls&quot;: &quot;&quot;,                    &quot;h5live&quot;: {                        &quot;rtmp&quot;: {                            &quot;url&quot;: &quot;rtmp://bintu-play.nanocosmos.de/play&quot;,                            &quot;streamname&quot;: &quot;XXXXX-YYYY1&quot;                        },                        &quot;server&quot;: {                            &quot;websocket&quot;: &quot;wss://bintu-h5live.nanocosmos.de:443/h5live/stream.mp4&quot;,                            &quot;hls&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/playlist.m3u8&quot;,                            &quot;progressive&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/stream.mp4&quot;                        },                        &quot;token&quot;: &quot;&quot;,                        &quot;security&quot;: {}                    },                    &quot;bintu&quot;: {}                },                {                    &quot;index&quot;: 1,                    &quot;label&quot;: &quot;medium&quot;,                    &quot;tag&quot;: &quot;this is a medium quality stream&quot;,                    &quot;info&quot;: {                        &quot;bitrate&quot;: 800,                        &quot;width&quot;: 864,                        &quot;height&quot;: 480,                        &quot;framerate&quot;: 30                    },                    &quot;hls&quot;: &quot;&quot;,                    &quot;h5live&quot;: {                        &quot;rtmp&quot;: {                            &quot;url&quot;: &quot;rtmp://bintu-play.nanocosmos.de/play&quot;,                            &quot;streamname&quot;: &quot;XXXXX-YYYY2&quot;                        },                        &quot;server&quot;: {                            &quot;websocket&quot;: &quot;wss://bintu-h5live.nanocosmos.de:443/h5live/stream.mp4&quot;,                            &quot;hls&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/playlist.m3u8&quot;,                            &quot;progressive&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/stream.mp4&quot;                        },                        &quot;token&quot;: &quot;&quot;,                        &quot;security&quot;: {}                    },                    &quot;bintu&quot;: {}                },                {                    &quot;index&quot;: 2,                    &quot;label&quot;: &quot;low&quot;,                    &quot;tag&quot;: &quot;this is a low quality stream&quot;,                    &quot;info&quot;: {                        &quot;bitrate&quot;: 400,                        &quot;width&quot;: 426,                        &quot;height&quot;: 240,                        &quot;framerate&quot;: 15                    },                    &quot;hls&quot;: &quot;&quot;,                    &quot;h5live&quot;: {                        &quot;rtmp&quot;: {                            &quot;url&quot;: &quot;rtmp://bintu-play.nanocosmos.de/play&quot;,                            &quot;streamname&quot;: &quot;XXXXX-YYYY3&quot;                        },                        &quot;server&quot;: {                            &quot;websocket&quot;: &quot;wss://bintu-h5live.nanocosmos.de:443/h5live/stream.mp4&quot;,                            &quot;hls&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/playlist.m3u8&quot;,                            &quot;progressive&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/stream.mp4&quot;                        },                        &quot;token&quot;: &quot;&quot;,                        &quot;security&quot;: {}                    },                    &quot;bintu&quot;: {}                }        ],        &quot;options&quot;: {            &quot;adaption&quot;: {                &quot;rule&quot;: &quot;deviationOfMean2&quot;,                &quot;downStep&quot;: 2            },            &quot;switch&quot;: {                &#x27;method&#x27;: &#x27;server&#x27;,                &#x27;pauseOnError&#x27;: false,                &#x27;forcePlay&#x27;: true,                &#x27;fastStart&#x27;: false,                &#x27;timeout&#x27;: 20            }        },        &quot;startIndex&quot;: 2 // lowest    },    // playback is completely optional    &quot;playback&quot;: {        &quot;autoplay&quot;: true,        &quot;automute&quot;: true,        &quot;muted&quot;: false,        &quot;faststart&quot;: true,        &quot;latencyControlMode&quot;: &#x27;balancedadaptive&#x27;,        &quot;metadata&quot;: true,        &quot;reconnect&quot;: {            &quot;minDelay&quot;: 2.5,            &quot;maxDelay&quot;: 12.5,            &quot;delaySteps&quot;: 6,            &quot;maxRetries&quot;: 20        },        &quot;videoId&quot;: [&#x27;myVideoTagId&#x27;, &#x27;myVideoTagId&#x27;]    },    &quot;events&quot;: {        &quot;onWarning&quot;: function (e) {            console.log(e);        }    },    &quot;style&quot;: {        &quot;width&quot;: &#x27;1280px&#x27;,        &quot;height&quot;: &#x27;720px&#x27;    },    // optional buffer tweaks, use with care, usually not required    &quot;tweaks&quot;: {        &quot;buffer&quot;: {            &quot;min&quot;: 0.2,            &quot;start&quot;: 0.5,            &quot;max&quot;: 8.0,            &quot;target&quot;: 1.2,            &quot;limit&quot;: 1.7        }    },    // metrics/analytics (requires account)    &quot;metrics&quot;: {        &quot;accountId&quot;: &#x27;myId&#x27;,        &quot;accountKey&quot;: &#x27;sdfhe457zsjhnrtzd8&#x27;,        &quot;userId&quot;: &#x27;myUserId&#x27;,        &quot;eventId&quot;: &#x27;myEventId&#x27;,        &quot;statsInterval&quot;: 10,        &quot;customField1&quot;: &#x27;custom&#x27;,        &quot;customField2&quot;: 42,        &quot;customField3&quot;: true    }};</pre>
 
     <pre class="sunlight-highlight-javascript">var config = {    &quot;source&quot; : {        &quot;entries&quot;: [ // array of &#x27;entry&#x27; objects, here only one is defined as single source                {                    &quot;index&quot;: 0,                    &quot;label&quot;: &quot;high&quot;, // optional                    &quot;tag&quot;: &quot;this is a high quality stream&quot;, // optional                    &quot;info&quot;: { // optional                        &quot;bitrate&quot;: 1200,                        &quot;width&quot;: 1280,                        &quot;height&quot;: 720,                        &quot;framerate&quot;: 30                    },                    &quot;hls&quot;: &quot;&quot;,                    &quot;h5live&quot;: {                        &quot;rtmp&quot;: {                            &quot;url&quot;: &quot;rtmp://bintu-play.nanocosmos.de/play&quot;,                            &quot;streamname&quot;: &quot;XXXXX-YYYYY&quot;                        },                        &quot;server&quot;: {                            &quot;websocket&quot;: &quot;wss://bintu-h5live.nanocosmos.de:443/h5live/stream.mp4&quot;,                            &quot;hls&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/playlist.m3u8&quot;,                            &quot;progressive&quot;: &quot;https://bintu-h5live.nanocosmos.de:443/h5live/http/stream.mp4&quot;                        },                        // (optional) secure token                        &quot;security&quot;: {                            &quot;token&quot;: &#x27;awe456b367g4e6rm8f56hbe6gd8f5m8df6n8idf6tf8mfd68ndi&#x27;,                            &quot;expires&quot;: &#x27;1519819200&#x27;,                            &quot;options&quot;: &#x27;15&#x27;,                            &quot;tag&quot;: &#x27;anyTag&#x27;                        }                    }                }        ],        &quot;options&quot;: { // optional            &quot;adaption&quot;: {                &quot;rule&quot;: &quot;none&quot;            }        },        &quot;startIndex&quot;: 0 // optional    },    &quot;playback&quot;: {        &quot;autoplay&quot;: true,        &quot;muted&quot;: true    },    &quot;events&quot;: {        &quot;onReady&quot;: function (e) {            console.log(&#x27;player ready with &#x27; + JSON.stringify(e));        },        &quot;onPlay&quot;: function (e) {            console.log(&#x27;playing&#x27;);            console.log(&#x27;play stats: &#x27; + JSON.stringify(e.data.stats));        },        &quot;onPause&quot;: function (e) {            console.log(&#x27;pause&#x27;);            if (e.data.reason !== &#x27;normal&#x27;) {                alert(&#x27;Paused with reason: &#x27; + e.data.reason);            }        },        &quot;onError&quot;: function (e) {            try {                var err = JSON.stringify(e);                if (err === &#x27;{}&#x27;) {                    err = e.message;                }                e = err;            } catch (err) { }            console.log(e);            alert(e);        },        &quot;onMetaData&quot;: function (e) {            console.log(e);        },        &quot;onStats&quot;: function (e) {            console.log(e);        },        &quot;onStreamInfo&quot;: function (e) {            console.log(e);        },        &quot;onDestroy&quot;: function (e) {            console.log(e);        }    },    &quot;style&quot;: {        &quot;width: &#x27;1280px&#x27;,        &quot;aspectratio&quot;: &#x27;16/9&#x27;,        &quot;controls&quot;: false,        &quot;scaling&quot;: &#x27;crop&#x27;    }};</pre>
 
@@ -10207,6 +10316,24 @@
 
         <tr>
             
+                <td class="name"><code>3102</code></td>
+            
+
+            <td class="type">
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Buffer range is higher than allowed on hls playback.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
                 <td class="name"><code>3200</code></td>
             
 
@@ -11058,7 +11185,7 @@
 
             
 
-            <td class="description last"><p>A forced tech is not supported by your browser.</p></td>
+            <td class="description last"><p>This browser does not fully support HTML5 and H5Live. Supported are: Chrome &gt;=54 (Windows, MacOSX, Android), Firefox &gt;=48 (Windows, MacOSX, Android), Microsoft Edge (Windows), Microsoft Internet Explorer 11 (at least Windows 8), Safari (MacOSX &amp; at least iOS 10).</p></td>
         </tr>
 
     
@@ -11076,7 +11203,7 @@
 
             
 
-            <td class="description last"><p>The players source configuration is malformed or missing.</p></td>
+            <td class="description last"><p>A forced tech is not supported by your browser.</p></td>
         </tr>
 
     
@@ -11094,7 +11221,7 @@
 
             
 
-            <td class="description last"><p>This browser does not fully support HTML5 and H5Live. Supported are: Chrome &gt;=54 (Windows, MacOSX, Android), Firefox &gt;=48 (Windows, MacOSX, Android), Microsoft Edge (Windows), Microsoft Internet Explorer 11 (at least Windows 8), Safari (MacOSX &amp; at least iOS 10).</p></td>
+            <td class="description last"><p>The players source configuration is malformed or missing.</p></td>
         </tr>
 
     
@@ -24249,7 +24376,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.5</a>
 	
-		on Tue Apr 25th 2023
+		on Tue Apr 23rd 2024
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

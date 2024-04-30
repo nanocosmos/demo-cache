@@ -7,10 +7,10 @@ sidebar_label: NanoPlayer
 <a name="NanoPlayer"></a>
 
 ## NanoPlayer
-NanoPlayer (H5Live) Public API Class 4.20.3
+NanoPlayer (H5Live) Public API Class 4.24.2
 
 **Kind**: global class  
-**Version**: 4.20.3  
+**Version**: 4.24.2  
 <a name="new_NanoPlayer_new"></a>
 
 ### new NanoPlayer(playerDivId)
@@ -163,6 +163,12 @@ The version of the view.
 The type of the player.
 
 **Kind**: instance property of [<code>NanoPlayer</code>](#NanoPlayer)  
+<a name="NanoPlayer+tech"></a>
+
+### nanoPlayer.tech : <code>string</code>
+The playback technology of the player.
+
+**Kind**: instance property of [<code>NanoPlayer</code>](#NanoPlayer)  
 <a name="NanoPlayer+id"></a>
 
 ### nanoPlayer.id : <code>string</code>
@@ -252,7 +258,7 @@ Unmutes the player.
 <a name="NanoPlayer+setVolume"></a>
 
 ### nanoPlayer.setVolume(volume)
-Sets the volume of the player.
+Sets the volume of the player. NOT AVAILABLE FOR IOS, see [<b>here</b>](https://developer.apple.com/library/archive/documentation/AudioVideo/Conceptual/Using_HTML5_Audio_Video/Device-SpecificConsiderations/Device-SpecificConsiderations.html#volume-control-in-javascript/) for more informations.
 
 **Kind**: instance method of [<code>NanoPlayer</code>](#NanoPlayer)  
 <table>
@@ -2080,7 +2086,7 @@ The config object to pass as param for the 'setup' call.
     <td>[source.options.switch.forcePlay]</td><td><code>boolean</code></td><td><code>true</code></td><td><p>If set the player starts playback in case the player is paused. Default is true.</p>
 </td>
     </tr><tr>
-    <td>[source.options.switch.fastStart]</td><td><code>boolean</code></td><td><code>false</code></td><td><p>Only if method is &#39;server&#39;. Tries to accelerate the startup time of the new source. Default is false.</p>
+    <td>[source.options.switch.fastStart]</td><td><code>boolean</code></td><td><code>false</code></td><td><p>DEPRECATED. Only if method is &#39;server&#39;. Tries to accelerate the startup time of the new source. Default is false.</p>
 </td>
     </tr><tr>
     <td>[source.options.switch.timeout]</td><td><code>number</code></td><td><code>20</code></td><td><p>The timeout for the update source request in seconds. If reached the error 4006 will thrown in the <a href="NanoPlayer#~event:onUpdateSourceFail">&#39;onUpdateSourceFail&#39;</a> and the <a href="NanoPlayer#~event:onSwitchStreamFail">&#39;onSwitchStreamFail&#39;</a> event. Default is 20 seconds, valid range is between 5 and 30.</p>
@@ -2195,6 +2201,9 @@ The config object to pass as param for the 'setup' call.
 </td>
     </tr><tr>
     <td>[playback.metadataLowDelay]</td><td><code>boolean</code></td><td><code>true</code></td><td><p>If enabled this mode for metadata processing is preventing occasionally delayed metadata on iOS. To use legacy mode set to false. The setting <code>playback.metadata</code> has to be enabled. IOS ONLY</p>
+</td>
+    </tr><tr>
+    <td>[playback.faststart]</td><td><code>boolean</code></td><td><code>false</code></td><td><p>If enabled the fast start mode is reducing the time to first frame and the playback start time.</p>
 </td>
     </tr><tr>
     <td>[playback.reconnect]</td><td><code>object</code></td><td></td><td><p>The reconnect object to configure the reconnect settings. See <a href="#NanoPlayer..errorcode">errorcodes</a> for reconnect possibility.</p>
@@ -2417,15 +2426,15 @@ The config object to pass as param for the 'setup' call.
 
 **Example**  
 ```js
-var config = {    source: {        bintu: { // DEPRECATED. PLEASE USE ENTRIES!!! WILL BE OVERWRITTEN IN CASE AT LEAST ONE 'ENTRY' IS DEFINED IN 'ENTRIES' ARRAY.            streamid: 'q23rf2tzw3h6754iretmft7irt'        }    }};
+// stream group config examplevar config = {    "source" : {        "group": {            "id": "3b6cca80-91ca-49f1-b7da-6486317ac077",            "startQuality": "low"        }    },    "playback": {        "autoplay": true,        "automute": true,        "muted": false,        "metadata": true,        "faststart": true,        "latencyControlMode": 'balancedadaptive'    },    "events": {        "onError": function (e) {            console.log(e);        }    },    "style": {        "width": 'auto',        "height": 'auto'    }};
 ```
 **Example**  
 ```js
-// Complete config examplevar config = {    "source" : {        "entries": [ // array of 'entry' objects                {                    "index": 0,                    "label": "high",                    "tag": "this is a high quality stream",                    "info": {                        "bitrate": 1200,                        "width": 1280,                        "height": 720,                        "framerate": 30                    },                    "hls": "",                    "h5live": {                        "rtmp": {                            "url": "rtmp://bintu-play.nanocosmos.de/play",                            "streamname": "XXXXX-YYYY1"                        },                        "server": {                            "websocket": "wss://bintu-h5live.nanocosmos.de:443/h5live/stream.mp4",                            "hls": "https://bintu-h5live.nanocosmos.de:443/h5live/http/playlist.m3u8",                            "progressive": "https://bintu-h5live.nanocosmos.de:443/h5live/http/stream.mp4"                        },                        "token": "",                        "security": {}                    },                    "bintu": {}                },                {                    "index": 1,                    "label": "medium",                    "tag": "this is a medium quality stream",                    "info": {                        "bitrate": 800,                        "width": 864,                        "height": 480,                        "framerate": 30                    },                    "hls": "",                    "h5live": {                        "rtmp": {                            "url": "rtmp://bintu-play.nanocosmos.de/play",                            "streamname": "XXXXX-YYYY2"                        },                        "server": {                            "websocket": "wss://bintu-h5live.nanocosmos.de:443/h5live/stream.mp4",                            "hls": "https://bintu-h5live.nanocosmos.de:443/h5live/http/playlist.m3u8",                            "progressive": "https://bintu-h5live.nanocosmos.de:443/h5live/http/stream.mp4"                        },                        "token": "",                        "security": {}                    },                    "bintu": {}                },                {                    "index": 2,                    "label": "low",                    "tag": "this is a low quality stream",                    "info": {                        "bitrate": 400,                        "width": 426,                        "height": 240,                        "framerate": 15                    },                    "hls": "",                    "h5live": {                        "rtmp": {                            "url": "rtmp://bintu-play.nanocosmos.de/play",                            "streamname": "XXXXX-YYYY3"                        },                        "server": {                            "websocket": "wss://bintu-h5live.nanocosmos.de:443/h5live/stream.mp4",                            "hls": "https://bintu-h5live.nanocosmos.de:443/h5live/http/playlist.m3u8",                            "progressive": "https://bintu-h5live.nanocosmos.de:443/h5live/http/stream.mp4"                        },                        "token": "",                        "security": {}                    },                    "bintu": {}                }        ],        "options": {            "adaption": {                "rule": "deviationOfMean2",                "downStep": 2            },            "switch": {                'method': 'server',                'pauseOnError': false,                'forcePlay': true,                'fastStart': false,                'timeout': 20            }        },        "startIndex": 2 // lowest    },    // playback is completely optional    "playback": {        "autoplay": true,        "automute": true,        "muted": false,        "metadata": true,        "reconnect": {            "minDelay": 2.5,            "maxDelay": 12.5,            "delaySteps": 6,            "maxRetries": 20        }    },    "events": {        "onWarning": function (e) {            console.log(e);        }    },    "style": {        "width": '1280px',        "height": '720px'    },    // optional buffer tweaks, use with care, usually not required    "tweaks": {        "buffer": {            "min": 0.2,            "start": 0.5,            "max": 8.0,            "target": 1.2,            "limit": 1.7        }    },    // metrics/analytics (requires account)    "metrics": {        "accountId": 'myId',        "accountKey": 'sdfhe457zsjhnrtzd8',        "userId": 'myUserId',        "eventId": 'myEventId',        "statsInterval": 10,        "customField1": 'custom',        "customField2": 42,        "customField3": true    }};
+// example with bintu as default servicevar config = {    "source": {        "defaults": {            "service": 'bintu'        },        "entries": [ // array of 'entry' objects                {                    "index": 0,                    "label": "high",                    "h5live": {                        "rtmp": {                            "streamname": "XXXXX-YYYY1"                        }                    }                },                {                    "index": 1,                    "label": "medium",                    "h5live": {                        "rtmp": {                            "streamname": "XXXXX-YYYY2"                        }                    }                },                {                    "index": 2,                    "label": "low",                    "h5live": {                        "rtmp": {                            "streamname": "XXXXX-YYYY3"                        }                    }                }        ],        "options": {            "adaption": {                "rule": "deviationOfMean2"            }        },        "startIndex": 2 // lowest    },    "playback": {        "autoplay": true,        "automute": true,        "muted": false,        "faststart": true,        "latencyControlMode": 'balancedadaptive'    },    "events": {        "onStats": function (e) {            console.log(e);        }    },    "style": {       view: false    },    "metrics": {        "accountId": 'myId',        "accountKey": 'sdfhe457zsjhnrtzd8'    }};
 ```
 **Example**  
 ```js
-// example with source url params and eventsvar config = {    "source": {        "h5live": { // DEPRECATED. PLEASE USE ENTRIES!!! WILL BE OVERWRITTEN IN CASE AT LEAST ONE 'ENTRY' IS DEFINED IN 'ENTRIES' ARRAY.            "server": {                "websocket": 'wss://bintu-h5live.nanocosmos.de/h5live/stream',                "hls": 'https://bintu-h5live.nanocosmos.de/h5live/http/playlist.m3u8'            },            // rtmp stream source (your live stream)            "params": {                "url": 'rtmp://bintu-play.nanocosmos.de:80/live',                "streamname": 'XXXXX-YYYYY'                "custom_key": 'custom_value'            }        }    },    "playback": {        "autoplay": false,        "videoId": ['myVideoTagId', 'myVideoTagId']    },    "events": {        "onStats": function (e) {            console.log(e);        }    },    "style": {       view: false    },    "metrics": {        "accountId": 'myId',        "accountKey": 'sdfhe457zsjhnrtzd8'    }};
+// complete config examplevar config = {    "source" : {        "entries": [ // array of 'entry' objects                {                    "index": 0,                    "label": "high",                    "tag": "this is a high quality stream",                    "info": {                        "bitrate": 1200,                        "width": 1280,                        "height": 720,                        "framerate": 30                    },                    "hls": "",                    "h5live": {                        "rtmp": {                            "url": "rtmp://bintu-play.nanocosmos.de/play",                            "streamname": "XXXXX-YYYY1"                        },                        "server": {                            "websocket": "wss://bintu-h5live.nanocosmos.de:443/h5live/stream.mp4",                            "hls": "https://bintu-h5live.nanocosmos.de:443/h5live/http/playlist.m3u8",                            "progressive": "https://bintu-h5live.nanocosmos.de:443/h5live/http/stream.mp4"                        },                        "token": "",                        "security": {}                    },                    "bintu": {}                },                {                    "index": 1,                    "label": "medium",                    "tag": "this is a medium quality stream",                    "info": {                        "bitrate": 800,                        "width": 864,                        "height": 480,                        "framerate": 30                    },                    "hls": "",                    "h5live": {                        "rtmp": {                            "url": "rtmp://bintu-play.nanocosmos.de/play",                            "streamname": "XXXXX-YYYY2"                        },                        "server": {                            "websocket": "wss://bintu-h5live.nanocosmos.de:443/h5live/stream.mp4",                            "hls": "https://bintu-h5live.nanocosmos.de:443/h5live/http/playlist.m3u8",                            "progressive": "https://bintu-h5live.nanocosmos.de:443/h5live/http/stream.mp4"                        },                        "token": "",                        "security": {}                    },                    "bintu": {}                },                {                    "index": 2,                    "label": "low",                    "tag": "this is a low quality stream",                    "info": {                        "bitrate": 400,                        "width": 426,                        "height": 240,                        "framerate": 15                    },                    "hls": "",                    "h5live": {                        "rtmp": {                            "url": "rtmp://bintu-play.nanocosmos.de/play",                            "streamname": "XXXXX-YYYY3"                        },                        "server": {                            "websocket": "wss://bintu-h5live.nanocosmos.de:443/h5live/stream.mp4",                            "hls": "https://bintu-h5live.nanocosmos.de:443/h5live/http/playlist.m3u8",                            "progressive": "https://bintu-h5live.nanocosmos.de:443/h5live/http/stream.mp4"                        },                        "token": "",                        "security": {}                    },                    "bintu": {}                }        ],        "options": {            "adaption": {                "rule": "deviationOfMean2",                "downStep": 2            },            "switch": {                'method': 'server',                'pauseOnError': false,                'forcePlay': true,                'fastStart': false,                'timeout': 20            }        },        "startIndex": 2 // lowest    },    // playback is completely optional    "playback": {        "autoplay": true,        "automute": true,        "muted": false,        "faststart": true,        "latencyControlMode": 'balancedadaptive',        "metadata": true,        "reconnect": {            "minDelay": 2.5,            "maxDelay": 12.5,            "delaySteps": 6,            "maxRetries": 20        },        "videoId": ['myVideoTagId', 'myVideoTagId']    },    "events": {        "onWarning": function (e) {            console.log(e);        }    },    "style": {        "width": '1280px',        "height": '720px'    },    // optional buffer tweaks, use with care, usually not required    "tweaks": {        "buffer": {            "min": 0.2,            "start": 0.5,            "max": 8.0,            "target": 1.2,            "limit": 1.7        }    },    // metrics/analytics (requires account)    "metrics": {        "accountId": 'myId',        "accountKey": 'sdfhe457zsjhnrtzd8',        "userId": 'myUserId',        "eventId": 'myEventId',        "statsInterval": 10,        "customField1": 'custom',        "customField2": 42,        "customField3": true    }};
 ```
 **Example**  
 ```js
@@ -2637,6 +2646,9 @@ The possible error codes in a onError event.
     <td>3101</td><td></td><td><p>An error occurred while buffering on hls playback.</p>
 </td>
     </tr><tr>
+    <td>3102</td><td></td><td><p>Buffer range is higher than allowed on hls playback.</p>
+</td>
+    </tr><tr>
     <td>3200</td><td></td><td><p>An unspecific media error occurred.</p>
 </td>
     </tr><tr>
@@ -2735,13 +2747,13 @@ The possible error codes in a onError event.
     <td>5001</td><td></td><td><p>An exception was thrown during setup.</p>
 </td>
     </tr><tr>
-    <td>5002</td><td></td><td><p>A forced tech is not supported by your browser.</p>
+    <td>5002</td><td></td><td><p>This browser does not fully support HTML5 and H5Live. Supported are: Chrome &gt;=54 (Windows, MacOSX, Android), Firefox &gt;=48 (Windows, MacOSX, Android), Microsoft Edge (Windows), Microsoft Internet Explorer 11 (at least Windows 8), Safari (MacOSX &amp; at least iOS 10).</p>
 </td>
     </tr><tr>
-    <td>5003</td><td></td><td><p>The players source configuration is malformed or missing.</p>
+    <td>5003</td><td></td><td><p>A forced tech is not supported by your browser.</p>
 </td>
     </tr><tr>
-    <td>5004</td><td></td><td><p>This browser does not fully support HTML5 and H5Live. Supported are: Chrome &gt;=54 (Windows, MacOSX, Android), Firefox &gt;=48 (Windows, MacOSX, Android), Microsoft Edge (Windows), Microsoft Internet Explorer 11 (at least Windows 8), Safari (MacOSX &amp; at least iOS 10).</p>
+    <td>5004</td><td></td><td><p>The players source configuration is malformed or missing.</p>
 </td>
     </tr><tr>
     <td>5005</td><td></td><td><p>Configuration error. Could not create/update player, the rtmp configuration is missing or incomplete. Add an rtmp url and streamname to the configuration.</p>
