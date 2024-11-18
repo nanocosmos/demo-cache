@@ -1,5 +1,97 @@
 ﻿# **NanoPlayer - Release History**
 
+## **[4.27.0]**
+
+### **Release Notes**
+
+This version includes a more robust conditioning for initial switch up which results in a faster up switch while using ABR. Applies to all platforms including iOS17, iOS18 and higher.
+
+### **Changelog**
+
+### Improved
+
+- initial switch up time for ABR
+
+## **[4.26.1]**
+
+### **Release Notes**
+
+With this patch version, we resolved an issue during `player.setup` that could cause an unhandled exception.
+
+### **Changelog**
+
+### Fixed
+
+- error condition during `player.setup` that could result in an unhandled exception
+
+## **[4.26.0]**
+
+### **Release Notes**
+
+This version includes several improvements. Playback attempts on mobile devices failing due to visibility state hidden at load start will now result in a dedicated event `1009`. This allows for clearer differentiation from other startup errors, such as network or stream issues `2003 Not enough media data received`. Further we improved playback start behavior in iOS WebView apps, which require user interaction for video playback in their WebView settings. Now, if a playback attempt is rejected due to missing user interaction, the player will emit error `1005` early on, allowing the application to prompt the user for interaction more quickly. Refer to recommended settings for iOS WebView: <https://docs.nanocosmos.de/docs/nanoplayer/nanoplayer_webview#ios>. In general find more information about error codes here: <https://docs.nanocosmos.de/docs/nanoplayer/nanoplayer_api#NanoPlayer..errorcode>.
+
+### **Changelog**
+
+### Improved
+
+- playback attempts on mobile devices failing due to visibility state `hidden` will now result in a dedicated error event with code `1009` and message `Playback failed because the player was in visibility state 'hidden' at load start.`
+  - allowing to distinguish from network or stream related startup errors, e.g. `2003 Not enough media data received.`
+
+### Fixed
+
+- playback start behaviour in iOS WebView apps requiring user interaction for video playback `mediaTypesRequiringUserActionForPlayback`
+  - in case of a playback attempt rejected due to missing user interaction, the player will now emit error `1005 Playback must be initialized by user gesture.` early on
+  - this enables the application to handle the condition faster by asking the user to interact
+  - see recommended settings for iOS WebView: <https://docs.nanocosmos.de/docs/nanoplayer/nanoplayer_webview#ios>
+
+## **[4.25.1]**
+
+### **Release Notes**
+
+In this patch release we enhanced the observability of player metrics to better monitor and ensure quality of service when using the Bintu configuration.
+
+### **Changelog**
+
+### Improved
+
+- observability in player metrics for quality of service in case of bintu configuration being used
+
+## **[4.25.0]**
+
+### **Release Notes**
+
+With this release, we've implemented handling for repeated switch stream failures by introducing cooldown functionality, thereby enhancing the robustness of stream switching.
+Additionally, we've strengthened access to video elements, ensuring more reliable and stable functionality.
+Furthermore, we've resolved issues related to preventing multiple `2004` errors and event order discrepancies when a bintu stream group is not live during setup.
+Lastly, we've addressed a random playback error occurring when `keepConnection` was enabled, ensuring a smoother playback experience.
+
+### **Changelog**
+
+### Added
+
+- handling in case of repeated switch stream fails via cooldown functionality
+
+### Improved
+
+- hardening video element access
+
+### Fixed
+
+- redundant `2004` error in case a bintu streamgroup is not live at setup
+- random playback error with `keepConnection` enabled
+
+## **[4.24.3]**
+
+### **Release Notes**
+
+This patch release is enabling H5Live-HLS fallbacks when access to ManagedMediaSource API is denied for locally loaded webpages in iOS WKWebView.
+
+### **Changelog**
+
+### Fixed
+
+- H5Live-HLS fallback in case of a denied access to the ManagedMediaSource API for locally loaded webpages in iOS WKWebView
+
 ## **[4.24.2]**
 
 ### **Release Notes**
@@ -744,7 +836,7 @@ The highlighting of the clickable buttons can be disabled via `config.style.butt
 Also the cursor at button mouseover (default: "pointer") can be customized over `config.style.buttonCursor` by passing a valid css cursor keyword or url.
 
 Furthermore support for poster images has been added. Poster images can be applied via the config.style.poster parameter.
-The string has to be a relative or absolute path to a valid "img" element source like "./assets/poster.png" or "<https://[YOURDOMAIN>]**/assets/poster.gif".
+The string has to be a relative or absolute path to a valid "img" element source like "./assets/poster.png" or "https://[YOURDOMAIN]**/assets/poster.gif".
 
 ### **Changelog**
 
