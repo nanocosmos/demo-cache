@@ -130,7 +130,11 @@ function updateStreamQualities (config) {
 
             abrQuality.appendChild(option);
         });
-        
+
+        if (entries.length > 1 && config.source.options.adaption.rule === 'none') {
+            abrQuality.value = entries[config.source.startIndex || 0].h5live.rtmp.streamname;
+        }
+
         console.log(`Populated qualities dropdown with ${entries.length} entries`);
     }
     else {
@@ -1220,7 +1224,7 @@ abrQuality.addEventListener('change', function () {
     if (player) {
         if (value === 'auto') {
             player.setAdaption({
-                'rule'     : config.source.options.adaption.rule || 'deviationOfMean2',
+                'rule'     : config.source.options.adaption.rule !== 'none' ? config.source.options.adaption.rule : 'deviationOfMean2',
                 'downStep' : config.source.options.adaption.downStep || 1,
             });
         }
@@ -1295,8 +1299,7 @@ function isValidConfigPath (path, isEntry = false) {
         // If the valid config defines this as 'object' string, any nested values are allowed
         if (current === 'object') {
             return {
-                'valid'        : true,
-                'expectedType' : 'object'
+                'valid': true
             };
         }
         
