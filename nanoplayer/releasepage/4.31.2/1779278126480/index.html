@@ -1,0 +1,142 @@
+<!DOCTYPE  html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    
+    <title>NanoPlayer Releases</title>
+    <link rel="stylesheet" href="release-styles.css"/>
+    <style>
+      /*github.com style (c) Vasily Polovnyov <vast@whiteants.net>*/
+      pre code {
+        display: block; padding: 0.5em;
+        color: #333;
+        background: #f8f8ff
+      }
+      pre .comment,
+      pre .template_comment,
+      pre .diff .header,
+      pre .javadoc {
+        color: #998;
+        font-style: italic
+      }
+      pre .keyword,
+      pre .css .rule .keyword,
+      pre .winutils,
+      pre .javascript .title,
+      pre .nginx .title,
+      pre .subst,
+      pre .request,
+      pre .status {
+        color: #333;
+        font-weight: bold
+      }
+      pre .number,
+      pre .hexcolor,
+      pre .ruby .constant {
+        color: #099;
+      }
+      pre .string,
+      pre .tag .value,
+      pre .phpdoc,
+      pre .tex .formula {
+        color: #d14
+      }
+      pre .title,
+      pre .id {
+        color: #900;
+        font-weight: bold
+      }
+      pre .javascript .title,
+      pre .lisp .title,
+      pre .clojure .title,
+      pre .subst {
+        font-weight: normal
+      }
+      pre .class .title,
+      pre .haskell .type,
+      pre .vhdl .literal,
+      pre .tex .command {
+        color: #458;
+        font-weight: bold
+      }
+      pre .tag,
+      pre .tag .title,
+      pre .rules .property,
+      pre .django .tag .keyword {
+        color: #000080;
+        font-weight: normal
+      }
+      pre .attribute,
+      pre .variable,
+      pre .lisp .body {
+        color: #008080
+      }
+      pre .regexp {
+        color: #009926
+      }
+      pre .class {
+        color: #458;
+        font-weight: bold
+      }
+      pre .symbol,
+      pre .ruby .symbol .string,
+      pre .lisp .keyword,
+      pre .tex .special,
+      pre .prompt {
+        color: #990073
+      }
+      pre .built_in,
+      pre .lisp .title,
+      pre .clojure .built_in {
+        color: #0086b3
+      }
+      pre .preprocessor,
+      pre .pi,
+      pre .doctype,
+      pre .shebang,
+      pre .cdata {
+        color: #999;
+        font-weight: bold
+      }
+      pre .deletion {
+        background: #fdd
+      }
+      pre .addition {
+        background: #dfd
+      }
+      pre .diff .change {
+        background: #0086b3
+      }
+      pre .chunk {
+        color: #aaa
+      }
+    </style>
+  </head>
+  <body>  
+    <h1 id="nanoplayer-release-overview"><strong>NanoPlayer - Release Overview</strong></h1>
+<h2 id="-4-31-2-"><strong>[4.31.2]</strong></h2>
+<h3 id="release-notes"><strong>Release Notes</strong></h3>
+<p>This release focuses on stability improvements and fixes for iOS playback behavior and stream quality handling. The playback resume behavior after background suspension has been improved for MSE playback, fixing an issue where playback could get stuck when resuming in muted mode if the session was never unmuted, particularly on iOS 26.4. This release also fixes an issue with incorrect <code>group.startQuality</code> selection when the configured quality was not available in the active rendition set.</p>
+<h3 id="changelog"><strong>Changelog</strong></h3>
+<h3 id="fixed">Fixed</h3>
+<ul>
+<li>issue in MSE playback where playback could get stuck when resuming in muted mode if the session was never unmuted, after being suspended in background state, particularly on iOS 26.4</li>
+<li>incorrect <code>group.startQuality</code> matching when the configured quality was not included in the available group renditions</li>
+</ul>
+<h3 id="release-package-4-31-2"><strong>Release Package 4.31.2</strong></h3>
+<ul>
+<li><a href="https://files.nanocosmos.de/index.php/s/xqMEX9nFtzxgQAn">4.31.2</a></li>
+<li><a href="https://files.nanocosmos.de/index.php/s/4nndC45mcB6oSa6">latest 4.x</a></li>
+<li><a href="https://files.nanocosmos.de/index.php/s/2tpCzgRjNEZDzeP">latest</a></li>
+</ul>
+<h3 id="documentation"><strong>Documentation</strong></h3>
+<ul>
+<li><a href="https://docs.nanocosmos.de/docs/nanoplayer/nanoplayer_api/">docs.nanocosmos.de</a></li>
+</ul>
+<h3 id="release-history"><strong>Release History</strong></h3>
+<ul>
+<li><a href="https://docs.nanocosmos.de/docs/nanoplayer/nanoplayer_release_history">release history</a></li>
+</ul>
+
+  </body>
+</html>
